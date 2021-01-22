@@ -3,6 +3,7 @@ package kutuphaneotomasyonu;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -14,6 +15,23 @@ public class Operations {
     Connection con = null;
     Statement sta = null;
     PreparedStatement psta = null;
+
+    public boolean login(String id, String password) {
+
+        String sorgu = "Select * from admin where id = ? and password = ?";
+        try {
+            psta = con.prepareStatement(sorgu);
+            psta.setString(1, id);
+            psta.setString(2, password);
+            ResultSet rs = psta.executeQuery();
+            return rs.next();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Operations.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
 
     public Operations() {
 
