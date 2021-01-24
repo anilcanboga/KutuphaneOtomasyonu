@@ -38,6 +38,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(400, 250, 0, 0));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -142,7 +143,10 @@ public class AdminPanel extends javax.swing.JFrame {
         String password = new String(password_field.getPassword());
         boolean result = operations.login(id, password);
         if (result == true) {
-            message.setText("Succesfull");
+            BookArchive book = new BookArchive(this, true);
+            setVisible(false);
+            book.setVisible(true);
+            System.exit(0);
         } else {
             message.setText("Couldn't Login!");
         }
