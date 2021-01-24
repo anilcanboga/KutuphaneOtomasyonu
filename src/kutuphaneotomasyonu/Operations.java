@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,29 @@ public class Operations {
     Connection con = null;
     Statement sta = null;
     PreparedStatement psta = null;
+
+    public ArrayList<Book> BookCome() {
+        ArrayList<Book> list = new ArrayList<Book>();
+        String sorgu = "Select * from books_database";
+
+        try {
+            sta = con.createStatement();
+            ResultSet rs = sta.executeQuery(sorgu);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String book_name = rs.getString("book_name");
+                String book_writer = rs.getString("book_writer");
+                String book_type = rs.getString("book_type");
+                String book_publisher = rs.getString("book_publisher");
+                list.add(new Book(id, book_name, book_writer, book_type, book_publisher));
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(Operations.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     public boolean login(String id, String password) {
 
