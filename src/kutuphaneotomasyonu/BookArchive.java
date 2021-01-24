@@ -5,11 +5,17 @@
  */
 package kutuphaneotomasyonu;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Anılcan
  */
 public class BookArchive extends javax.swing.JDialog {
+
+    DefaultTableModel model;
+    Operations op = new Operations();
 
     /**
      * Creates new form BookArchive
@@ -17,6 +23,8 @@ public class BookArchive extends javax.swing.JDialog {
     public BookArchive(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        model = (DefaultTableModel) book_table.getModel();
+        bookView();
     }
 
     /**
@@ -41,7 +49,7 @@ public class BookArchive extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        book_table = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jTextField5 = new javax.swing.JTextField();
@@ -51,6 +59,8 @@ public class BookArchive extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(300, 200, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 0, 0));
@@ -119,7 +129,7 @@ public class BookArchive extends javax.swing.JDialog {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kutuphaneotomasyonu/kutuphane_logo.png"))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        book_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -135,12 +145,12 @@ public class BookArchive extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(book_table);
+        if (book_table.getColumnModel().getColumnCount() > 0) {
+            book_table.getColumnModel().getColumn(0).setResizable(false);
+            book_table.getColumnModel().getColumn(1).setResizable(false);
+            book_table.getColumnModel().getColumn(2).setResizable(false);
+            book_table.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jButton3.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
@@ -194,10 +204,8 @@ public class BookArchive extends javax.swing.JDialog {
                         .addComponent(jButton4)
                         .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField5)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(65, 65, 65)
@@ -237,7 +245,9 @@ public class BookArchive extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,6 +256,22 @@ public class BookArchive extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void bookView() {
+        model.setRowCount(0);
+        ArrayList<Book> books = new ArrayList<Book>();
+        books = op.BookCome();
+
+        if (books != null) {
+
+            for (Book bookx : books) {
+                Object[] add = {
+                    bookx.getBook_name(), bookx.getBook_writer(), bookx.getBook_type(), bookx.getBook_publisher()
+                };
+                model.addRow(add);
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -290,6 +316,7 @@ public class BookArchive extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable book_table;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -305,7 +332,6 @@ public class BookArchive extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
