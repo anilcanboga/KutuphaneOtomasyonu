@@ -6,7 +6,9 @@
 package kutuphaneotomasyonu;
 
 import java.util.ArrayList;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -52,7 +54,7 @@ public class BookArchive extends javax.swing.JDialog {
         book_table = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
+        search_field = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -159,6 +161,12 @@ public class BookArchive extends javax.swing.JDialog {
         jButton4.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jButton4.setText("Delete");
 
+        search_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                search_fieldKeyReleased(evt);
+            }
+        });
+
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel5.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
@@ -205,7 +213,7 @@ public class BookArchive extends javax.swing.JDialog {
                         .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(search_field, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(65, 65, 65)
@@ -227,7 +235,7 @@ public class BookArchive extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(search_field, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,6 +264,21 @@ public class BookArchive extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void filter(String query) {
+
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<DefaultTableModel>(model);
+        book_table.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(query));
+    }
+
+
+    private void search_fieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_search_fieldKeyReleased
+        String query = search_field.getText();
+        filter(query);
+
+
+    }//GEN-LAST:event_search_fieldKeyReleased
 
     public void bookView() {
         model.setRowCount(0);
@@ -336,6 +359,6 @@ public class BookArchive extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField search_field;
     // End of variables declaration//GEN-END:variables
 }
