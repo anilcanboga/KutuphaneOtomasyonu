@@ -17,6 +17,21 @@ public class Operations {
     Statement sta = null;
     PreparedStatement psta = null;
 
+    public int bookCount() {
+        int label = 0;
+        String sorgu = "SELECT COUNT(*) FROM books_database";
+        try {
+            sta = con.createStatement();
+            ResultSet rs = sta.executeQuery(sorgu);
+            rs.next();
+            label = rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Operations.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+        return label;
+    }
+
     public void bookDelete(int id) {
 
         String sorgu = "Delete from books_database WHERE id=?";

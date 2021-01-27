@@ -27,6 +27,15 @@ public class BookArchive extends javax.swing.JDialog {
         initComponents();
         model = (DefaultTableModel) book_table.getModel();
         bookView();
+        bookNumber();
+    }
+
+    public void bookNumber() {
+
+        count_lbl.setText("0");
+        int i = op.bookCount();
+        String ii = String.valueOf(i);
+        count_lbl.setText(ii);
     }
 
     /**
@@ -56,7 +65,7 @@ public class BookArchive extends javax.swing.JDialog {
         jButton4 = new javax.swing.JButton();
         search_field = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        count_lbl = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         message1 = new javax.swing.JLabel();
@@ -191,9 +200,9 @@ public class BookArchive extends javax.swing.JDialog {
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
 
-        jLabel5.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText(" 5");
+        count_lbl.setFont(new java.awt.Font("Consolas", 1, 18)); // NOI18N
+        count_lbl.setForeground(new java.awt.Color(255, 255, 255));
+        count_lbl.setText(" 5");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -201,14 +210,14 @@ public class BookArchive extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(count_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)
+                .addComponent(count_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 19, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -319,8 +328,7 @@ public class BookArchive extends javax.swing.JDialog {
         op.bookAdd(name, writer, type, publisher);
         bookView();
         message1.setText("Kitap Başarıyla Eklendi.");
-
-
+        bookNumber();
     }//GEN-LAST:event_add_btnActionPerformed
 
     private void book_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_book_tableMouseClicked
@@ -331,7 +339,6 @@ public class BookArchive extends javax.swing.JDialog {
         writer_field.setText(model.getValueAt(selectedrow, 2).toString());
         type_field.setText(model.getValueAt(selectedrow, 3).toString());
         publisher_field.setText(model.getValueAt(selectedrow, 4).toString());
-
     }//GEN-LAST:event_book_tableMouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -373,6 +380,7 @@ public class BookArchive extends javax.swing.JDialog {
             op.bookDelete(id);
             bookView();
             message1.setText("Book Delete Succesfull");
+            bookNumber();
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -438,6 +446,7 @@ public class BookArchive extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_btn;
     private javax.swing.JTable book_table;
+    private javax.swing.JLabel count_lbl;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -445,7 +454,6 @@ public class BookArchive extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
